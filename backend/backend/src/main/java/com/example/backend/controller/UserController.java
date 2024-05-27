@@ -55,4 +55,17 @@ public class UserController {
         return new ResponseEntity<>(userId, status);
     }
 
+    @DeleteMapping("/eliminar-persona")
+    public ResponseEntity<Integer> deleteUser(@RequestParam Integer id){
+        Optional<UserEntity> deletionSuccess = userService.deleteUser(id);
+        Integer userId = null;
+        HttpStatus status = HttpStatus.CONFLICT;
+        if(deletionSuccess.isPresent()){
+            userId = deletionSuccess.get().getId();
+            status = HttpStatus.OK;
+        }
+
+        return new ResponseEntity<>(userId, status);
+    }
+
 }
